@@ -7,6 +7,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/channels#resource
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
+    # @see https://developers.google.com/youtube/v3/docs/playlistImages#resource
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
     # @see https://developers.google.com/youtube/v3/docs/commentThreads#resource
     # @see https://developers.google.com/youtube/v3/docs/comments#resource
@@ -46,6 +47,10 @@ module Yt
       has_attribute :language
       has_attribute :name
       has_attribute :status
+
+      has_attribute :width, type: Integer
+      has_attribute :height, type: Integer
+      has_attribute :type
 
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']

@@ -147,11 +147,27 @@ module Yt
         playlist_items.delete_all attributes
       end
 
+      # Adds an image to the playlist.
+      # Unlike {#add_video}, raises an error if video can’t be added.
+      # @param [String] image_id the image ID to add to the playlist.
+      # @raise [Yt::Errors::RequestError] if image can’t be added.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to update the playlist.
+      # @return [Yt::PlaylistImage] the image added to the playlist.
+      def add_image!(image_id)
+        playlist_image_params = playlist_image_params(image_id)
+        playlist_images.insert playlist_image_params
+      end
+
     ### ASSOCIATIONS ###
 
-      # @!attribute [r] playlist_items
-      #   @return [Yt::Collections::PlaylistItems] the playlist’s items.
-      has_many :playlist_items
+    # @!attribute [r] playlist_items
+    #   @return [Yt::Collections::PlaylistItems] the playlist’s items.
+    has_many :playlist_items
+
+    # @!attribute [r] playlist_images
+    #   @return [Yt::Collections::PlaylistImages] the playlist’s images.
+    has_many :playlist_images
 
     ### ANALYTICS ###
 
